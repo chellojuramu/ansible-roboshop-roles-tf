@@ -1,0 +1,40 @@
+---
+# 1. INSTALLATION: Setting up the Nginx engine
+- name: enable nginx 1.24
+  ansible.builtin.command: dnf module enable nginx:1.24 -y
+
+- name: install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+
+# 2. CONFIGURATION: Linking the Frontend to the Backend
+- name: copy roboshop config
+  ansible.builtin.template:
+    src: nginx.conf.j2  # Ansible looks in roles/frontend/templates/
+    dest: /etc/nginx/default.d/nginx.conf
+  notify: restart nginx # This triggers the handler
+
+# 3. DEPLOYMENT: Cleaning and extracting static UI files
+- name: clean old content
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: absent
+
+- name: create html directory
+  ansible.builtin.file:
+    path: /usr/share/nginx/html
+    state: directory
+
+- name: download and extract frontend content
+  ansible.builtin.unarchive:
+    src: https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
+    dest: /usr/share/nginx/html
+    remote_src: yes # Tells Ansible to download directly to the target
+
+# 4. ACTIVATION
+- name: start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes

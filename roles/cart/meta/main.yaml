@@ -1,0 +1,4 @@
+---
+# Dependency logic: This role cannot run until 'common' is successful
+dependencies:
+  - role: common  

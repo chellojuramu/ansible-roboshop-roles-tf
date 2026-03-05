@@ -1,0 +1,16 @@
+---
+# Purpose: Prepare the NodeJS environment for backend microservices
+- name: enable nodejs 20
+  # We use dnf module to ensure we get the specific version required by the app
+  ansible.builtin.command: dnf module enable nodejs:20 -y
+
+- name: install nodejs
+  # Core runtime installation
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
+
+- name: install dependencies
+  # community.general.npm is the standard module to handle package.json
+  community.general.npm:
+    path: /app

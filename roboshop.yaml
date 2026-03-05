@@ -1,0 +1,17 @@
+---
+# This is a generic playbook that works for any Roboshop component (Cart, User, Shipping, etc.)
+- name: "Deployment for {{ component }}"
+  
+  # 'hosts' targets the specific group of servers defined in your inventory file
+  hosts: "{{ component }}"
+  
+  # 'become' gives Ansible sudo/root privileges to install packages and change system files
+  become: yes
+  
+  # 'serial' controls the rolling update. 
+  # It updates only 3 servers at a time to ensure the website stays "Up" for users
+  serial: 3
+  
+  # 'roles' points to the folder containing the specific instructions for that component
+  roles:
+    - "{{ component }}"

@@ -1,0 +1,21 @@
+---
+# Purpose: Prepare the Java environment and build the application
+- name: install maven and mysql client
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - maven
+    - mysql
+
+- name: build application with maven
+  # Converts source code into a runnable JAR file
+  ansible.builtin.command: mvn clean package
+  args:
+    chdir: /app
+
+- name: rename artifact for service
+  # Standardizes the name for the systemd unit file
+  ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar 
+  args:
+    chdir: /app

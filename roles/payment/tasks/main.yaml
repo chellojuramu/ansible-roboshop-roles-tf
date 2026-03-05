@@ -1,0 +1,25 @@
+---
+# 1. CORE SETUP: Shared user and directory logic
+- name: app setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup.yaml
+
+# 2. RUNTIME SETUP: Specific Python environment tasks
+- name: python setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: python-setup.yaml
+
+# 3. SERVICE CONFIG: Building the systemd unit file
+- name: systemd setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup.yaml
+
+# 4. ACTIVATION: Finalizing the background process
+- name: start payment
+  ansible.builtin.service:
+    name: payment
+    state: restarted
+    enabled: yes

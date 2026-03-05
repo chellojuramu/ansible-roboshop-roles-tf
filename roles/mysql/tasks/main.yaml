@@ -1,0 +1,19 @@
+---
+# 1. INSTALLATION: Deploying the relational database engine
+- name: install MySQL server
+  ansible.builtin.dnf:
+    name: mysql-server
+    state: present # Ensures the package is installed
+
+# 2. LIFECYCLE: Ensuring the database is active and persistent
+- name: start and enable mysql server
+  ansible.builtin.service:
+    name: mysqld
+    state: restarted # Force restart to apply any initial configs
+    enabled: yes # Ensures service starts automatically on server reboot
+
+# 3. SECURITY (CRITICAL): Setting the admin credentials
+- name: setup root password
+  # Note: This command may fail on second run if password is already set.
+  # In production, we use 'ignore_errors: yes' or a pre-check task.
+  ansible.builtin.command: mysql_secure_installation --set-root-pass "{{ MYSQL_ROOT_PASSWORD }}"

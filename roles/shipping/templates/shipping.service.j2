@@ -1,0 +1,18 @@
+[Unit]
+Description = Shipping Service
+
+[Service]
+# Running as the restricted system user for production security
+User=roboshop
+WorkingDirectory=/app
+
+# Dynamic endpoints: These link Shipping to Cart and MySQL
+Environment=CART_ENDPOINT="{{ CART_HOST }}:8080"
+Environment=DB_HOST="{{ MYSQL_HOST }}"
+
+# Java Execution: Points to the JAR we built in the java-setup tasks
+ExecStart=/usr/bin/java -jar /app/shipping.jar
+SyslogIdentifier=shipping
+
+[Install]
+WantedBy=multi-user.target

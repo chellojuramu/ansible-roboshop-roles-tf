@@ -1,0 +1,30 @@
+---
+# Official AWS EC2 Dynamic Inventory Plugin
+plugin: amazon.aws.aws_ec2
+
+# Target specific regions to speed up the discovery process
+regions:
+  - us-east-1
+
+# Tell Ansible to use the Private IP address as the connection hostname
+# This is critical for security as it keeps traffic inside the VPC
+hostnames:
+  - private-ip-address
+
+# Filters ensure we only target the correct set of servers
+filters:
+  # Only discover instances that are currently "Running"
+  instance-state-name: running
+  # Target instances based on their "Name" tag
+  tag:Name: frontend-dev
+
+# 'compose' allows us to map AWS internal variables to Ansible connection variables
+compose:
+  # Sets 'ansible_host' to the private IP fetched from the AWS API
+  ansible_host: private_ip_address
+
+# 'keyed_groups' automatically creates inventory groups based on tags
+keyed_groups:
+  - separator: ''
+    # This logic takes 'frontend-dev', removes the '-dev', and creates a group called 'frontend'
+    key: tags.Name | regex_replace('-.*$', '')

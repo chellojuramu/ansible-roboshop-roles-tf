@@ -1,0 +1,6 @@
+---
+# Purpose: Restart Nginx only when 'notify' is triggered by the template task
+- name: restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted

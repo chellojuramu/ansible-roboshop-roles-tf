@@ -1,0 +1,12 @@
+---
+# Purpose: Convert the application into a background system service
+- name: copy {{ component }} service
+  # We use Jinja2 templates (.j2) to inject dynamic environment variables
+  ansible.builtin.template:
+    src: "{{ component }}.service.j2"
+    dest: "/etc/systemd/system/{{ component }}.service"
+
+- name: daemon reload
+  # Notifies the system that a new service file has been added
+  ansible.builtin.systemd_service:
+    daemon_reload: true
