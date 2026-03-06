@@ -16,8 +16,8 @@
     name: "{{ item }}"
     executable: pip3.9
   loop:
-    - botocore
     - boto3
+    - botocore
 
 # 3. SECURITY (CRITICAL): Setting the admin credentials
 - name: setup root password
