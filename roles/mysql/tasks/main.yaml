@@ -11,6 +11,13 @@
     name: mysqld
     state: restarted # Force restart to apply any initial configs
     enabled: yes # Ensures service starts automatically on server reboot
+- name: install botocore and boto3
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    executable: pip3.9
+  loop:
+    - botocore
+    - boto3
 
 # 3. SECURITY (CRITICAL): Setting the admin credentials
 - name: setup root password
