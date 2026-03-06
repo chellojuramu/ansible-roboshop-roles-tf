@@ -18,7 +18,9 @@
   loop:
     - boto3
     - botocore
-
+- name: print environment
+  debug:
+    var: environment
 # 3. SECURITY (CRITICAL): Setting the admin credentials
 - name: setup root password
   # Note: This command may fail on second run if password is already set.
