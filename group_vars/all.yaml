@@ -9,3 +9,4 @@ MYSQL_HOST: mysql-"{{ env }}".servicewiz.in
 SHIPPING_HOST: shipping-"{{ env }}".servicewiz.in
 RABBITMQ_HOST: rabbitmq-"{{ env }}".servicewiz.in
 PAYMENT_HOST: payment-"{{ env }}".servicewiz.in
+app_version: v3
