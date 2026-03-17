@@ -1,12 +1,12 @@
 ansible_user: ec2-user
 ansible_password: DevOps321
-MONGODB_HOST: mongodb-"{{ env }}".servicewiz.in
-CATALOGUE_HOST: catalogue.backend-alb-"{{ env }}".servicewiz.in
-REDIS_HOST: redis-"{{ env }}".servicewiz.in
-USER_HOST: user.backend-alb-"{{ env }}".servicewiz.in
-CART_HOST: cart.backend-alb-"{{ env }}".servicewiz.in
-MYSQL_HOST: mysql-"{{ env }}".servicewiz.in
-SHIPPING_HOST: shipping.backend-alb-"{{ env }}".servicewiz.in
-RABBITMQ_HOST: rabbitmq-"{{ env }}".servicewiz.in
-PAYMENT_HOST: payment.backend-alb-"{{ env }}".servicewiz.in
+MONGODB_HOST: mongodb-{{ env }}.servicewiz.in
+CATALOGUE_HOST: catalogue.backend-alb.{{ env }}.servicewiz.in
+REDIS_HOST: redis-{{ env }}.servicewiz.in
+USER_HOST: user.backend-alb.{{ env }}.servicewiz.in
+CART_HOST: cart.backend-alb.{{ env }}.servicewiz.in
+MYSQL_HOST: mysql-{{ env }}.servicewiz.in
+SHIPPING_HOST: shipping.backend-alb.{{ env }}.servicewiz.in
+RABBITMQ_HOST: rabbitmq-{{ env }}.servicewiz.in
+PAYMENT_HOST: payment.backend-alb.{{ env }}.servicewiz.in
 app_version: v3
